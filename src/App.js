@@ -13,16 +13,14 @@ class App extends Component {
   }
 }
 
-function Clear(){
 
-}
 class Calculator extends Component {
   
   render(){
     return(
     <div className="calculator">
         <div className ="display">
-          <div className="input">{this.props.display}</div>
+          <div className="numbers">{this.props.display}</div>
         </div>
         <div className ="keys">
           <p>
@@ -44,7 +42,7 @@ class Calculator extends Component {
             <button className = "subtract">-</button>
           </p>
           <p>
-            <button className = "1">1</button>
+            <button className = "1" onClick={this.props.handle}>1</button>
             <button className = "2">2</button>
             <button className = "3">3</button>
             <button className = "add">+</button>
@@ -68,6 +66,7 @@ class Math extends Component {
       funcValue: 0,
 
     }
+    this.handleClick = this.handleClick.bind(this);
   }
   Addition(props){
     
@@ -85,11 +84,18 @@ class Math extends Component {
     this.setState({
       displayValue:0,
     })
-
+  }
+  handleClick() {
+    this.setState({
+      displayValue:1,
+    })
   }
   render(){
     return(
-      <Calculator display = {this.displayValue} />
+      <Calculator 
+            display = {this.displayValue}
+            handle = {this.handleClick}
+            />
     );
   }
 }
