@@ -1,17 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Calculator.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          
-        </header>
-      </div>
-    );
-  }
-}
 
 
 class Calculator extends Component {
@@ -42,7 +31,7 @@ class Calculator extends Component {
             <button className = "subtract">-</button>
           </p>
           <p>
-            <button className = "1" onClick={this.props.handle}>1</button>
+            <button className = "1" onClick={this.props.handleClick}>1</button>
             <button className = "2">2</button>
             <button className = "3">3</button>
             <button className = "add">+</button>
@@ -58,7 +47,7 @@ class Calculator extends Component {
     );
   }
 }
-class Math extends Component {
+class mathHandler extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,16 +74,16 @@ class Math extends Component {
       displayValue:0,
     })
   }
-  handleClick() {
+  handleClick(event) {
     this.setState({
-      displayValue:1,
+      displayValue:this.state.displayValue + event.target.classList[0],
     })
   }
   render(){
     return(
       <Calculator 
-            display = {this.displayValue}
-            handle = {this.handleClick}
+            display = {this.state.displayValue}
+            handleClick = {this.handleClick}
             />
     );
   }
