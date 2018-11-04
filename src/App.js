@@ -28,7 +28,7 @@ class Calculator extends Component {
           <div className ="row1"> 
             <button className = "blank"></button>
             <button className = "blank"></button>
-            <button className = "ac"  onClick={}>AC</button>
+            <button className = "ac">AC</button>
             <button className = "divide">/</button>
           </div>
           <div className ="row2">
@@ -87,7 +87,6 @@ class Math extends Component {
     })
 
   }
-  render(){
-  }
+  
 }
-export default App;
+export default Calculator;
