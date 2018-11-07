@@ -15,47 +15,49 @@ class Calculator extends Component {
           <p>
             <button className = "undo">↶</button>
             <button className = "redo">↷</button>
-            <button className = "ac">AC</button>
-            <button className = "divide">/</button>
+            <button className = "ac" onClick={this.props.Clear}>AC</button>
+            <button className = "/" onClick={this.props.handleClick}>/</button>
           </p>
           <p>
-            <button className = "7">7</button>
-            <button className = "8">8</button>
-            <button className = "9">9</button>
-            <button className = "multiply">*</button>
+            <button className = "7" onClick={this.props.handleClick}>7</button>
+            <button className = "8" onClick={this.props.handleClick}>8</button>
+            <button className = "9" onClick={this.props.handleClick}>9</button>
+            <button className = "*" onClick={this.props.handleClick}>*</button>
           </p>
           <p>
-            <button className = "4">4</button>
-            <button className = "5">5</button>
-            <button className = "6">6</button>
-            <button className = "subtract">-</button>
+            <button className = "4" onClick={this.props.handleClick}>4</button>
+            <button className = "5" onClick={this.props.handleClick}>5</button>
+            <button className = "6" onClick={this.props.handleClick}>6</button>
+            <button className = "-" onClick={this.props.handleClick}>-</button>
           </p>
           <p>
             <button className = "1" onClick={this.props.handleClick}>1</button>
-            <button className = "2">2</button>
-            <button className = "3">3</button>
-            <button className = "add">+</button>
+            <button className = "2" onClick={this.props.handleClick}>2</button>
+            <button className = "3" onClick={this.props.handleClick}>3</button>
+            <button className = "+" onClick={this.props.handleClick}>+</button>
           </p>
           <p>
             <button className = "placeholder">pl</button>
-            <button className = "0">0</button>
+            <button className = "0" onClick={this.props.handleClick}>0</button>
             <button className = "placeholder">pl</button>
-            <button className = "equals">=</button>
+            <button className = "equals" onClick={this.props.handleClick}>=</button>
           </p>
           </div>
     </div>
     );
   }
 }
-class mathHandler extends Component {
+class MathHandler extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayValue: 0,
+      displayValue: "",
       funcValue: 0,
 
     }
     this.handleClick = this.handleClick.bind(this);
+    this.Clear = this.Clear.bind(this);
+    this.Equal = this.Equals.bind(this);
   }
   Addition(props){
     
@@ -69,23 +71,54 @@ class mathHandler extends Component {
   Division(props){
     
   }
+  Equals(){
+    if(this.state.displayValue.indexOf("+") !== -1){
+      var interValue = this.state.displayValue.split("+")
+      this.setState({
+        displayValue:(parseInt(interValue[0]) + parseInt(interValue[1])),
+      })   
+    } else if(this.state.displayValue.indexOf("*") !== -1){
+      interValue = this.state.displayValue.split("*")
+      this.setState({
+        displayValue:(parseInt(interValue[0]) * parseInt(interValue[1])),
+      })
+    } else if(this.state.displayValue.indexOf("-") !== -1){
+      interValue = this.state.displayValue.split("-")
+      this.setState({
+        displayValue:(parseInt(interValue[0]) - parseInt(interValue[1])),
+      }) 
+    } else if(this.state.displayValue.indexOf("/") !== -1){
+      interValue = this.state.displayValue.split("/")
+      this.setState({
+        displayValue:(parseInt(interValue[0]) / parseInt(interValue[1])),
+      })
+    }
+  }
   Clear(){
     this.setState({
-      displayValue:0,
+      displayValue:"",
     })
   }
   handleClick(event) {
-    this.setState({
-      displayValue:this.state.displayValue + event.target.classList[0],
-    })
+    if(this.state.displayValue.length > 18){
+      return "";
+    }else if(event.target.classList[0] === "equals"){
+      this.Equals()
+    } else {
+      this.setState({
+        displayValue:this.state.displayValue + event.target.classList[0],
+      })
+    }
   }
   render(){
     return(
       <Calculator 
             display = {this.state.displayValue}
             handleClick = {this.handleClick}
+            Clear = {this.Clear}
+            Equal = {this.Equals}
             />
     );
   }
 }
-export default Calculator;
+export default MathHandler;
